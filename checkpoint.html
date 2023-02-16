@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="pokemon">
+    <button id="btn">Cerca</button>
+    <div id="container"></div>
+
+
+    <script>
+        let btn = document.getElementById("btn");
+
+        async function getPoke(url) {
+            try {
+                let res = await fetch(url);
+                let data = await res.json()
+                return data;
+            }
+            catch (e) {
+                console.log(e);
+                div.innerHTML = "Cerca un altro pokemon"
+            }
+        }
+        async function showInfo(input) {
+            let div = document.getElementById("container")
+            div.innerHTML = "";
+            let input = document.getElementById("pokemon").value
+            let url = `https://pokeapi.co/api/v2/pokemon/${input}`;
+            const data = await getPoke(url);
+            const name = data.forms[0].name;
+            const nameEl = document.createElement("p")
+            const textNode = document.createTextNode(name)
+            nameEl.appendChild(textNode)
+            div.appendChild(nameEl)
+        }
+
+        btn.addEventListener("click", function(){
+            alert("ciao")
+        })
+    </script>
+</body>
+
+</html>
